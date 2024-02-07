@@ -1,16 +1,19 @@
 <template>
   <img alt="Vue logo" src="./assets/logo.png">
   <my-component></my-component>
+  <home-page></home-page>
 </template>
 
 <script>
 
 import MyComponent from "@/MyComponent";
+import HomePage from "@/components/homePage";
 
 export default {
   name: 'App',
-  components: { MyComponent },
+  components: {HomePage, MyComponent },
 }
+
 </script>
 
 <style>
