@@ -1,14 +1,19 @@
 <template>
-  <default-layout></default-layout>
+  <default-theme></default-theme>
 </template>
 
 <style>
+html,body{
+  height: 100%;
+  box-sizing: border-box;
+}
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+  height: 100%;
 }
 
 nav {
@@ -25,8 +30,8 @@ nav a.router-link-exact-active {
 }
 </style>
 <script>
-import defaultLayout from "@/views/DefaultLayoutView";
+import defaultTheme from "./views/DefaultThemeView";
 export default {
-  components: {defaultLayout}
+  components: {defaultTheme}
 }
 </script>
