@@ -12,7 +12,7 @@ const connection = mysql.createConnection({
     host: 'localhost',
     user: 'root', // ваш пользователь
     password: 'root', // ваш пароль
-    database: 'catalog', // ваша база данных
+    database: 'vueappmagazin', // ваша база данных
     port: 3306, // ваш порт MySQL
 });
 
