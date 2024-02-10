@@ -8,7 +8,7 @@
              v-model="searchInput"
       >
     </form>
-    <FilterCatalog></FilterCatalog>
+    <FilterCatalog @update-filters="updateFilters"></FilterCatalog>
 
     <!-- Используем ProductCard для каждого продукта в массиве products -->
     <div class="product-cards-box product-list row">
@@ -35,7 +35,11 @@ export default {
     return {
       products: [], // массив для хранения продуктов
       searchInput: '',
-      newProduct: { name: '', price: 0, description: '', category: '', image_url: '' }, // новый продукт
+      newProduct: { name: '', price: 0, description: '', puffsCount: '', category: '', imageUrl: '' }, // новый продукт
+      minPrice: null, // добавленные свойства
+      maxPrice: null,
+      minPuff: null,
+      maxPuff: null,
     };
   },
   mounted() {
@@ -59,23 +63,37 @@ export default {
             console.error(error);
           });
     },
+    updateFilters({ minPrice, maxPrice, minPuff, maxPuff }) {
+      // Обновление значений фильтров в компоненте CatalogView
+      this.minPrice = minPrice;
+      this.maxPrice = maxPrice;
+      this.minPuff = minPuff;
+      this.maxPuff = maxPuff;
+
+      // Перезагрузка продуктов с учетом новых фильтров
+      this.loadProducts();
+    },
   },
   computed: {
-
     filteredProducts() {
-
-      return this.products.filter(product => {
-
-        const isPriceInRange = (!this.minPrice || product.price >= this.minPrice) &&
-            (!this.maxPrice || product.price <= this.maxPrice);
-        const isPuffInRange = (!this.minPuff || product.puffCount >= this.minPuff) &&
-            (!this.maxPuff || product.puffCount <= this.maxPuff);
-        const isNameMatch = !this.searchInput ||
-            product.name.toLowerCase().includes(this.searchInput.toLowerCase());
+      const filtered = this.products.filter(product => {
+        const isPriceInRange = (!this.minPrice || (product.price >= this.minPrice && product.price <= this.maxPrice));
+        const isPuffInRange = (!this.minPuff || (product.puffCount >= this.minPuff && product.puffCount <= this.maxPuff));
+        const isNameMatch = !this.searchInput || product.name.toLowerCase().includes(this.searchInput.toLowerCase());
 
         return isPriceInRange && isPuffInRange && isNameMatch;
-
       });
+
+      console.log('Filtered products:', {
+        minPrice: this.minPrice,
+        maxPrice: this.maxPrice,
+        minPuff: this.minPuff,
+        maxPuff: this.maxPuff,
+        searchInput: this.searchInput,
+        result: filtered,
+      });
+
+      return filtered;
     }
   },
 

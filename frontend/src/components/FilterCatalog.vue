@@ -6,14 +6,24 @@
       <!-- Фильтр по цене -->
       <div>
         <label for="priceRange">Цена: </label>
-        <vue-slider v-model="priceRange" :min="0" :max="10000"></vue-slider>
+        <vue-slider v-model="priceRange"
+                    :min="0" :max="10000"
+                    @change="updateFilters"
+                    id="priceRange">
+
+        </vue-slider>
         <p>Диапазон цен: {{ priceRange[0] }} - {{ priceRange[1] }}</p>
       </div>
 
       <!-- Фильтр по количеству затяжек -->
       <div>
         <label for="puffRange">Затяжки: </label>
-        <vue-slider v-model="puffRange" :min="0" :max="15000"></vue-slider>
+        <vue-slider v-model="puffRange"
+                    :min="0" :max="15000"
+                    @change="updateFilters"
+                    id="puffRange">
+
+        </vue-slider>
         <p>Диапазон затяжек: {{ puffRange[0] }} - {{ puffRange[1] }}</p>
       </div>
     </div>
@@ -36,7 +46,15 @@ export default {
     };
   },
   methods: {
-
+    updateFilters() {
+      // Передаем значения фильтров родительскому компоненту
+      this.$emit('update-filters', {
+        minPrice: this.priceRange[0],
+        maxPrice: this.priceRange[1],
+        minPuff: this.puffRange[0],
+        maxPuff: this.puffRange[1],
+      });
+    },
   },
 };
 </script>

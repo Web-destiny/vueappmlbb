@@ -14,7 +14,8 @@
     "express": "^4.18.2",
     "mysql2": "^3.9.1",
     "vue": "^3.2.13",
-    "vue-router": "^4.2.5"
+    "vue-router": "^4.2.5",
+    "vue-slider-component": "^4.1.0-beta.7"
   },
   "devDependencies": {
     "@babel/core": "^7.12.16",
