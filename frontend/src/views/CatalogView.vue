@@ -8,10 +8,10 @@
              v-model="searchInput"
       >
     </form>
-    <FilterCatalog @update-filters="updateFilters"></FilterCatalog>
+    <FilterCatalog @update-filters="updateFilters" @reset-filters="resetFilters"></FilterCatalog>
 
     <!-- Используем ProductCard для каждого продукта в массиве products -->
-    <div class="product-cards-box product-list row">
+    <div class="product-cards-box product-list">
       <ProductCard v-for="product in filteredProducts" :key="product.id" :product="product" />
     </div>
 
@@ -73,12 +73,24 @@ export default {
       // Перезагрузка продуктов с учетом новых фильтров
       this.loadProducts();
     },
+    resetFilters() {
+      // Установка значений фильтров в их начальные значения или другие значения по умолчанию
+      this.minPrice = null;
+      this.maxPrice = null;
+      this.minPuff = null;
+      this.maxPuff = null;
+
+      // Перезагрузка продуктов после сброса фильтров
+      this.loadProducts();
+    },
   },
   computed: {
     filteredProducts() {
       const filtered = this.products.filter(product => {
-        const isPriceInRange = (!this.minPrice || (product.price >= this.minPrice && product.price <= this.maxPrice));
-        const isPuffInRange = (!this.minPuff || (product.puffCount >= this.minPuff && product.puffCount <= this.maxPuff));
+        const isPriceInRange = (!this.minPrice || product.price >= this.minPrice) &&
+            (!this.maxPrice || product.price <= this.maxPrice);
+        const isPuffInRange = (!this.minPuff || product.puffCount >= this.minPuff) &&
+            (!this.maxPuff || product.puffCount <= this.maxPuff);
         const isNameMatch = !this.searchInput || product.name.toLowerCase().includes(this.searchInput.toLowerCase());
 
         return isPriceInRange && isPuffInRange && isNameMatch;
@@ -108,12 +120,10 @@ export default {
 .product-cards-box{
   margin-top: 20px;
   margin-bottom: 20px;
-  gap: 15px;
-}
-
-.product-list {
+  display: flex;
   margin-left: -10px;
   margin-right: -20px;
+  flex-wrap: wrap;
 }
 
 </style>
