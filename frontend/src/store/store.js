@@ -8,6 +8,7 @@ export default createStore({
     mutations: {
         addToCart(state, product) {
             state.cart.push(product);
+            console.log(state.cart)
         },
         removeFromCart(state, productId) {
             state.cart = state.cart.filter(item => item.id !== productId);

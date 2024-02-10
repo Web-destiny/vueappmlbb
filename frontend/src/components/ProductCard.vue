@@ -11,7 +11,7 @@
       </div>
       <p>{{ product.description }}</p>
       <p>Количество затяжек: {{ product.puffCount }}</p>
-      <p>Цена: {{ product.price }}</p>
+      <p>Цена: {{ formattedPrice(product.price) }} руб.</p>
       <!-- Дополнительные элементы карточки товара, если необходимо -->
       <button
           @click="addToCart"
@@ -49,6 +49,9 @@ export default {
   computed: {
     buttonText() {
       return this.addingToCart ? 'Добавлено в корзину' : 'Добавить в корзину';
+    },
+    formattedPrice() {
+      return (price) => `${Math.round(price)}`;
     },
   },
 };

@@ -3,7 +3,7 @@
     <h2>Корзина</h2>
     <ul>
       <li v-for="item in cartItems" :key="item.id">
-        {{ item.name }} - {{ item.price }} руб.
+        {{ item.name }} - {{ formattedPrice(item.price) }} руб.
         <button @click="removeFromCart(item.id)">Удалить из корзины</button>
       </li>
     </ul>
@@ -17,6 +17,10 @@ export default {
   computed: {
     cartItems() {
       return this.$store.state.cart;
+    },
+    // Вычисляемое свойство для форматирования цены
+    formattedPrice() {
+      return (price) => `${Math.round(price)}`;
     },
   },
   methods: {
