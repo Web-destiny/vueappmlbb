@@ -13,6 +13,13 @@
       <p>Количество затяжек: {{ product.puffCount }}</p>
       <p>Цена: {{ product.price }}</p>
       <!-- Дополнительные элементы карточки товара, если необходимо -->
+      <button
+          @click="addToCart"
+          type="button"
+          class="btn btn-success"
+      >
+        Добавить в корзину
+      </button>
     </div>
   </div>
 </template>
@@ -22,6 +29,12 @@ export default {
   props: {
     product: Object, // Принимаем продукт как пропс
   },
+  methods: {
+    addToCart() {
+      this.$store.dispatch('addToCartAsync', this.product);
+
+    },
+  }
 };
 </script>
 
@@ -31,7 +44,7 @@ export default {
   background: #FFF;
   border: 1px solid #dfdede;
   border-radius: 5px;
-  padding: 0 10px;
+  padding: 10px 10px;
   overflow: hidden;
   position: relative;
   box-sizing: initial;

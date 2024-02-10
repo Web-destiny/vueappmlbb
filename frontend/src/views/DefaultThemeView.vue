@@ -6,6 +6,7 @@
       <router-link to="/blog">Блог</router-link>
       <router-link to="/gallery">Галерея</router-link>
       <router-link to="/about">О нас</router-link>
+      <router-link to="/cart"  class="bi bi-cart"></router-link>
 
     </nav>
     <header>
@@ -56,6 +57,7 @@ html,body{
 
 .main{
   flex: 1 1 auto;
+  padding: 20px 0;
 }
 
 
