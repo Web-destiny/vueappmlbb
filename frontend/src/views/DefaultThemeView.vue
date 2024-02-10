@@ -6,7 +6,9 @@
       <router-link to="/blog">Блог</router-link>
       <router-link to="/gallery">Галерея</router-link>
       <router-link to="/about">О нас</router-link>
-      <router-link to="/cart"  class="bi bi-cart"></router-link>
+      <router-link to="/cart" class="bi bi-cart cart-icon">
+        <span class="badge" v-if="cartLength > 0">{{ cartLength }}</span>
+      </router-link>
 
     </nav>
     <header>
@@ -28,6 +30,22 @@
 <script>
 export default {
   name: "default-theme",
+  data(){
+    return{
+
+    }
+  },
+  computed: {
+    cartLength() {
+      return this.$store.state.cart.length;
+    },
+  },
+  watch: {
+    // Наблюдение за изменением длины корзины и обновление cartLength
+    '$store.state.cart'(newVal) {
+      this.cartLength = newVal.length;
+    },
+  },
 };
 </script>
 
@@ -58,6 +76,22 @@ html,body{
 .main{
   flex: 1 1 auto;
   padding: 20px 0;
+}
+
+.cart-icon{
+  position: relative;
+}
+
+.badge {
+  background-color: red;
+  color: white;
+  border-radius: 50%;
+  padding: 3px 6px;
+  font-size: 14px;
+  position: absolute;
+  top: 1px;
+  right: -4px;
+  transform: translate(50%, -50%);
 }
 
 

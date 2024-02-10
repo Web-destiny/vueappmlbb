@@ -17,8 +17,9 @@
           @click="addToCart"
           type="button"
           class="btn btn-success"
+          :disabled="addingToCart"
       >
-        Добавить в корзину
+        {{ buttonText }}
       </button>
     </div>
   </div>
@@ -29,12 +30,27 @@ export default {
   props: {
     product: Object, // Принимаем продукт как пропс
   },
+  data(){
+    return{
+      addingToCart: false,
+    }
+  },
   methods: {
     addToCart() {
+      this.addingToCart = true;
       this.$store.dispatch('addToCartAsync', this.product);
+      // Установите таймер для восстановления текста кнопки через 2 секунды (или другое подходящее время)
+      setTimeout(() => {
+        this.addingToCart = false;
+      }, 2000);
 
     },
-  }
+  },
+  computed: {
+    buttonText() {
+      return this.addingToCart ? 'Добавлено в корзину' : 'Добавить в корзину';
+    },
+  },
 };
 </script>
 
