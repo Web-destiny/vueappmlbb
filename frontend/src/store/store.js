@@ -13,6 +13,16 @@ export default createStore({
         removeFromCart(state, productId) {
             state.cart = state.cart.filter(item => item.id !== productId);
         },
+
+        //  альтернатива как удалять только один из повторябщихся товаров
+
+        // removeFromCart(state, productId) {
+        //     const index = state.cart.findIndex(item => item.id === productId);
+        //     if (index !== -1) {
+        //         state.cart.splice(index, 1);
+        //     }
+        // },
+
         clearCart(state) {
             state.cart = [];
         },
