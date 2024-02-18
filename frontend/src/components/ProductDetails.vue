@@ -4,6 +4,7 @@
   <div>
     <h2>{{ product.name }}</h2>
     <p>{{ product.description }}</p>
+    <p>{{ product.extended_description }}</p>
     <!-- Другие детали продукта -->
   </div>
 </template>
