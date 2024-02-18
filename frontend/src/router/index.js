@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
+import ProductDetails from "../components/ProductDetails";
 
 const routes = [
   {
@@ -55,6 +56,27 @@ const routes = [
     // which is lazy-loaded when the route is visited.
     component: () => import(/* webpackChunkName: "about" */ '../views/CartView.vue')
   },
+  {
+    path: '/product/:productId',
+    name: 'product-details',
+    component: ProductDetails,
+    props: true,
+    beforeEnter: (to, from, next) => {
+      const productId = to.params.productId;
+
+      // Загрузите данные о продукте с использованием вашего метода или fetch
+      fetch(`http://localhost:3000/catalog/${productId}`)
+          .then(response => response.json())
+          .then(product => {
+            to.params.product = product;
+            next();
+          })
+          .catch(error => {
+            console.error(error);
+            next('/catalog'); // Вернуться на страницу каталога в случае ошибки загрузки
+          });
+    }
+  }
 
 ]
 

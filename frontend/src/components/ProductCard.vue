@@ -3,9 +3,12 @@
 <template>
   <div class="col-6 col-lg-3">
     <div class="product-card">
-      <div class="image">
-        <img :src="product.image_url" alt="Product Image">
-      </div>
+      <router-link :to="{ name: 'product-details', params: { productId: product.id } }">
+        <div class="image">
+          <img :src="product.image_url" alt="Product Image">
+        </div>
+      </router-link>
+
       <div class="h5">
         <span>{{ product.name }}</span>
       </div>

@@ -35,6 +35,18 @@ app.get('/catalog', (req, res) => {
     });
 });
 
+app.get('/catalog/:id', (req, res) => {
+    const productId = req.params.id;
+    connection.query('SELECT * FROM products WHERE id = ?', [productId], (err, results) => {
+        if (err) {
+            console.error('Error querying MySQL:', err);
+            res.status(500).json({ error: 'Internal Server Error' });
+            return;
+        }
+        res.json(results[0]); // Первый элемент массива, так как ожидается, что id уникален
+    });
+});
+
 app.post('/catalog', (req, res) => {
     const { name, price, description, category } = req.body;
     const query = 'INSERT INTO products (name, price, description, category) VALUES (?, ?, ?, ?)';
