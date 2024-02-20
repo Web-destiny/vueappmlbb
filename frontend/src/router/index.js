@@ -68,11 +68,12 @@ const routes = [
       fetch(`http://localhost:3000/catalog/${productId}`)
           .then(response => response.json())
           .then(product => {
+            console.log('Product data:', product);
             to.params.product = product;
             next();
           })
           .catch(error => {
-            console.error(error);
+            console.error('Error fetching product data:', error);
             next('/catalog'); // Вернуться на страницу каталога в случае ошибки загрузки
           });
     }
