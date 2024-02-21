@@ -6,9 +6,13 @@ export default createStore({
         cart: [], // пример начального состояния (ваш стейт здесь)
     },
     mutations: {
-        addToCart(state, product) {
-            state.cart.push(product);
-            console.log(state.cart)
+        addToCart(state, { product, quantity }) {
+            const existingProduct = state.cart.find((item) => item.id === product.id);
+            if (existingProduct) {
+                existingProduct.quantity += quantity;
+            } else {
+                state.cart.push({ ...product, quantity });
+            }
         },
         // removeFromCart(state, productId) {
         //     state.cart = state.cart.filter(item => item.id !== productId);
@@ -28,9 +32,8 @@ export default createStore({
         },
     },
     actions: {
-        addToCartAsync({ commit }, product) {
-            // Здесь может быть асинхронный код (например, API вызов)
-            commit('addToCart', product);
+        addToCartAsync({ commit }, { product, quantity }) {
+            commit('addToCart', { product, quantity });
         },
         removeFromCartAsync({commit}, productId) {
             commit('removeFromCart', productId)

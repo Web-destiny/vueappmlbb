@@ -8,11 +8,16 @@
              v-model="searchInput"
       >
     </form>
-    <FilterCatalog @update-filters="updateFilters" @reset-filters="resetFilters"></FilterCatalog>
+    <FilterCatalog @update-filters="updateFilters"
+                   @reset-filters="resetFilters">
+    </FilterCatalog>
 
     <!-- Используем ProductCard для каждого продукта в массиве products -->
     <div class="product-cards-box product-list">
-      <ProductCard v-for="product in filteredProducts" :key="product.id" :product="product" />
+      <ProductCard
+          v-for="product in filteredProducts"
+          :key="product.id"
+          :product="product" />
     </div>
 
 

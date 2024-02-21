@@ -11,6 +11,7 @@
           <div class="product-item__image">
             <img :src="item.image_url" alt="Product Image">
           </div>
+          <div>Количество: {{ item.quantity }}</div>
         </div>
         <button
             @click="removeFromCart(item.id)"

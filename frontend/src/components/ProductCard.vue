@@ -24,6 +24,7 @@
       >
         {{ buttonText }}
       </button>
+      <input v-model="quantity" type="number" min="1" class="form-control" />
     </div>
   </div>
 </template>
@@ -36,17 +37,16 @@ export default {
   data(){
     return{
       addingToCart: false,
+      quantity: 1,
     }
   },
   methods: {
     addToCart() {
       this.addingToCart = true;
-      this.$store.dispatch('addToCartAsync', this.product);
-      // Установите таймер для восстановления текста кнопки через 2 секунды (или другое подходящее время)
+      this.$store.dispatch('addToCartAsync', { product: this.product, quantity: this.quantity });
       setTimeout(() => {
         this.addingToCart = false;
       }, 2000);
-
     },
   },
   computed: {
