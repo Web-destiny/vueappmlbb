@@ -11,7 +11,17 @@
           <div class="product-item__image">
             <img :src="item.image_url" alt="Product Image">
           </div>
-          <div>Количество: {{ item.quantity }}</div>
+          <div>
+            <label for="quantity">Количество:</label>
+            <input
+                v-model="item.quantity"
+                type="number"
+                id="quantity"
+                min="1"
+                class="form-control"
+                @input="updateCartItem(item.id, item.quantity)"
+            />
+          </div>
         </div>
         <button
             @click="removeFromCart(item.id)"
@@ -52,6 +62,9 @@ export default {
     },
     clearCart() {
       this.$store.dispatch('clearCartAsync');
+    },
+    updateCartItem(productId, quantity) {
+      this.$store.dispatch('updateCartItemAsync', { productId, quantity });
     },
   },
 };

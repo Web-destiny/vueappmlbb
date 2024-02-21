@@ -30,6 +30,12 @@ export default createStore({
         clearCart(state) {
             state.cart = [];
         },
+        updateCartItem(state, { productId, quantity }) {
+            const product = state.cart.find((item) => item.id === productId);
+            if (product) {
+                product.quantity = quantity;
+            }
+        },
     },
     actions: {
         addToCartAsync({ commit }, { product, quantity }) {
@@ -40,7 +46,10 @@ export default createStore({
         },
         clearCartAsync({commit}, state) {
             commit('clearCart', state)
-        }
+        },
+        updateCartItemAsync({ commit }, { productId, quantity }) {
+            commit('updateCartItem', { productId, quantity });
+        },
     },
     getters: {
         // ваши геттеры
